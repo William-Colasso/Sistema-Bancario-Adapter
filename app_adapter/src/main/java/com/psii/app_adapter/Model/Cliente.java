@@ -17,6 +17,8 @@ public class Cliente {
 
     private String email;
 
+    private String senha;
+
     private String telefone;
 
     @DBRef
@@ -70,4 +72,14 @@ public class Cliente {
     public void setContas(List<Conta> contas) {
         this.contas = contas;
     }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    
 }
