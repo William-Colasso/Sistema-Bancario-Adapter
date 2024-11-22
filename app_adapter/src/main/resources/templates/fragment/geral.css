@@ -1,0 +1,13 @@
+a{
+    text-decoration: none;
+    
+}
+
+a:hover span{
+    opacity: 0.9;
+    color: rgb(77, 76, 76);
+}
+
+a:hover i{
+    scale: 1.05;
+}
