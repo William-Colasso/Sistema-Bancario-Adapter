@@ -11,3 +11,7 @@ a:hover span{
 a:hover i{
     scale: 1.05;
 }
+
+.criarConta{
+    display: flex;
+}

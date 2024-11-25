@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fragmentos</title>
 
-    <div class="cssDependencie">
+    <div th:fragment="cssDependencie" class="cssDependencie">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" th:href="@{css/geral.css}">
@@ -15,10 +15,10 @@
 </head>
 
 <body>
-    <div class="barraLateral">
+    <div th:fragment="barraLateral" class="barraLateral">
 
         <!-- Botão para abrir a barra lateral -->
-        <button class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+        <button class="btn btn-primary mt-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" style="margin: 50px;"
             aria-controls="sidebar">
             <i class="fas fa-bars"></i> <!-- Menu -->
         </button>
@@ -79,7 +79,7 @@
                     </a>
                 
                     <!-- GitHub -->
-                    <a href="https://www.github.com" target="_blank" class="social-icon mx-2" style="font-size: 30px; color: #181717;">
+                    <a href="https://github.com/William-Colasso/Sistema-Bancario-Adapter.git" target="_blank" class="social-icon mx-2" style="font-size: 30px; color: #181717;">
                         <i class="fab fa-github"></i>
                     </a>
                 </div>
@@ -91,7 +91,16 @@
         </div>
     </div>
 
-    <div class="jsDependencie">
+    <div class="criarConta">
+        <h1 id="tituloCriar">Crie sua conta agora mesmo</h1>
+
+
+
+        <a th:href="@{/conta/cadastro/{id}(id=2)}" style="padding: 20px; border: solid 2px #CCC;">login</a>
+        <a th:href="@{/conta/cadastro/{id}(id=1)}" style="padding: 20px; border: solid 2px #CCC;">Cadastre-se</a>
+    </div>
+
+    <div th:fragment="jsDependencie" class="jsDependencie">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="@{js/cache.js}"></script>
     </div>
