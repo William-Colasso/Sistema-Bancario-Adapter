@@ -1,4 +1,4 @@
-// Verifica se o usuário está logado
+/*// Verifica se o usuário está logado
 function verificarLogin() {
     const usuarioLogado = localStorage.getItem('usuarioLogado');
     const dadosUsuario = localStorage.getItem('dadosUsuario');
@@ -21,4 +21,4 @@ function verificarLogin() {
 }
 
 // Chama a função para verificar o estado do login
-verificarLogin();
+verificarLogin();*/

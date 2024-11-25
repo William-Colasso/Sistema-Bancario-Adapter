@@ -21,18 +21,48 @@ public class Transacao {
     private Conta conta;
 
     // Getters e Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public TipoTransacao getTipo() { return tipo; }
-    public void setTipo(TipoTransacao tipo) { this.tipo = tipo; }
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
 
-    public double getValor() { return valor; }
-    public void setValor(double valor) { this.valor = valor; }
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
 
-    public Conta getConta() { return conta; }
-    public void setConta(Conta conta) { this.conta = conta; }
+    public TipoTransacao getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoTransacao tipo) {
+        this.tipo = tipo;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    
+
+
+
 }

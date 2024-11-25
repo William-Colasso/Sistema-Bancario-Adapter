@@ -24,21 +24,51 @@ public class Conta {
     private List<Transacao> transacoes;
 
     // Getters e Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getNumeroConta() { return numeroConta; }
-    public void setNumeroConta(String numeroConta) { this.numeroConta = numeroConta; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public TipoConta getTipoConta() { return tipoConta; }
-    public void setTipoConta(TipoConta tipoConta) { this.tipoConta = tipoConta; }
+    public String getNumeroConta() {
+        return numeroConta;
+    }
 
-    public double getSaldo() { return saldo; }
-    public void setSaldo(double saldo) { this.saldo = saldo; }
+    public void setNumeroConta(String numeroConta) {
+        this.numeroConta = numeroConta;
+    }
 
-    public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    public TipoConta getTipoConta() {
+        return tipoConta;
+    }
 
-    public List<Transacao> getTransacoes() { return transacoes; }
-    public void setTransacoes(List<Transacao> transacoes) { this.transacoes = transacoes; }
+    public void setTipoConta(TipoConta tipoConta) {
+        this.tipoConta = tipoConta;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
 }

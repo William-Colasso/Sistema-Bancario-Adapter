@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org/">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
+
+    <div th:insert="~{/geral :: cssDependencie}"></div>
 </head>
+
 <body>
 
+    <div th:insert="~{/geral :: barraLateral}"></div>
 
-    
+    <div class="containerEscolha">
+
+
+        <a th:href="@{pagamento}" class="linkPagamento">
+            <div class="inicioPagamento">
+                <i class="fas fa-dollar-sign"></i>
+                <p>Pagamento</p>
+            </div>
+        </a>
+        
+        <a href="" class="linkPerfil">
+            <div class="inicioPerfil">
+                <i class="fas fa-user"></i><p>Meu perfil</p>
+            </div>
+        </a>
+        
+        <a href="" class="linkExtrato">
+            <div class="inicioExtrato">
+                <i class="fas fa-file-alt"></i><p>Extrato</p>
+            </div>
+        </a>
+        
+
+
+
+    </div>
+
+
+    <div th:insert="~{/geral :: jsDependencie}"></div>
+
 </body>
+
 </html>

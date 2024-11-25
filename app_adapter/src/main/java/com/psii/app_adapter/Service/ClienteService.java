@@ -26,10 +26,14 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
+
     // Método para criar um novo cliente
     public Cliente createCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
+
+    
+
 
     // Método para atualizar um cliente
     public Optional<Cliente> updateCliente(String id, Cliente cliente) {
@@ -40,6 +44,8 @@ public class ClienteService {
         return Optional.empty();
     }
 
+
+
     // Método para deletar um cliente
     public void deleteCliente(String id) {
         if (clienteRepository.existsById(id)) {
@@ -48,4 +54,7 @@ public class ClienteService {
         }
         return ;
     }
+
+
+
 }

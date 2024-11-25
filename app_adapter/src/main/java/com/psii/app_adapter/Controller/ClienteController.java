@@ -23,5 +23,9 @@ public class ClienteController {
     public String getClientes(Model model){
         return "geral";
     }
+    @GetMapping("/home")
+    public String getHome(Model model){
+        return "banco/paginaPrincipal";
+    }
     
 }

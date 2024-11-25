@@ -1,0 +1,77 @@
+.containerEscolha{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+
+}
+
+.containerEscolha a:hover{
+    background-color: #CCC;
+    transition: 0.2s;
+}
+.containerEscolha a{
+    transition: 0.2s;
+}
+
+    
+a{
+    text-decoration: none;
+}
+
+.containerEscolha i{
+    scale: 2;
+}
+
+
+.inicioPagamento{
+    border-radius: 3px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px #CCC;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    gap: 30px;
+    
+}
+.inicioPerfil{
+    border-radius: 3px;
+    height: 200px;
+    gap: 30px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px #CCC;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+}
+.inicioExtrato{
+    border-radius: 3px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px #CCC;
+    align-items: center;
+    align-content: center;
+    gap: 30px;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+
