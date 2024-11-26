@@ -1,113 +1,129 @@
 /* Barra Lateral */
 
-html,body{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .barraLateral {
-    background-color: #f8f9fa;
-    height: 100%;
-    width: 10%;
-
+  height: 100%;
+  width: 10%;
+  align-self: flex-end;
+  margin-right: 80%;
+  padding-top: 1%;
 }
 
 .barraLateral .btn {
-    font-size: 16px;
-    padding: 10px 20px;
+  font-size: 16px;
+  padding: 10px 20px;
 }
 
 .offcanvas {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .offcanvas-header {
-    border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .offcanvas-body ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .offcanvas-body .list-group-item {
-    border: none;
-    font-size: 18px;
-    color: #333;
-    transition: background-color 0.3s;
+  border: none;
+  font-size: 18px;
+  color: #333;
+  transition: background-color 0.3s;
 }
 
 .offcanvas-body .list-group-item:hover {
-    background-color: #f1f1f1;
-    color: #007bff;
+  background-color: #f1f1f1;
+  color: #007bff;
 }
 
 .offcanvas-body .list-group-item span {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 /* Social Media Icons */
 .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .social-icons .social-icon {
-    transition: transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
 }
 
 .social-icons .social-icon:hover {
-    transform: scale(1.2);
-    opacity: 0.8;
+  transform: scale(1.2);
+  opacity: 0.8;
 }
 
 /* Título Criar Conta */
 #tituloCriar {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 /* Links de Login e Cadastro */
-.criarConta{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+.criarConta {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
 }
 
-
 .criarConta a {
-    display: inline-block;
-    font-size: 16px;
-    text-align: center;
-    padding: 15px 25px;
-    text-decoration: none;
-    border: 2px solid #ccc;
-    color: #333;
-    transition: all 0.3s;
-    border-radius: 5px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  padding: 15px 25px;
+  text-decoration: none;
+  border: 2px solid #ccc;
+  color: #333;
+  transition: all 0.3s;
+  border-radius: 5px;
 }
 
 .criarConta a:hover {
-    background-color: #f8f9fa;
-    border-color: #007bff;
-    color: #007bff;
-
+  background-color: #f8f9fa;
+  border-color: #007bff;
+  color: #007bff;
 }
 
 /* Barra de Separação */
 .barraLateral .separator {
-    width: 100%;
-    height: 5px;
-    background-color: gray;
-    opacity: 0.5;
-    margin: 25px 0;
+  width: 100%;
+  height: 5px;
+  background-color: gray;
+  opacity: 0.5;
+  margin: 25px 0;
+}
+
+.barraSuperior {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 14vh;
+  border: #ccc 1px solid;
+  border-radius: 10px;
+  background-color: rgba(224, 224, 224, 0.5);
+}
+
+.barraSuperior a img {
+  width: 100%;
+  scale:1;
+  height: 100%;
 }
