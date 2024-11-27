@@ -21,8 +21,16 @@ public class Cliente {
 
     private String telefone;
 
-    @DBRef
-    private List<Conta> contas;
+
+    private Double saldo;
+
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
+    }
 
     // Getters e Setters
     public String getId() {
@@ -65,13 +73,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public List<Conta> getContas() {
-        return contas;
-    }
 
-    public void setContas(List<Conta> contas) {
-        this.contas = contas;
-    }
 
     public String getSenha() {
         return senha;

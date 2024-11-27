@@ -1,24 +1,18 @@
-/*// Verifica se o usuário está logado
 function verificarLogin() {
     const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const dadosUsuario = localStorage.getItem('dadosUsuario');
+    const dadosUsuario = JSON.parse(localStorage.getItem('dadosUsuario'));
 
-    if (!usuarioLogado || !dadosUsuario) {
-        // Se não existir, cria variáveis no localStorage
-        localStorage.setItem('usuarioLogado', 'false');
-        localStorage.setItem('dadosUsuario', JSON.stringify({}));
-
-        // Redireciona para a página de criação de conta
-        window.location.href = '/geral.html';
+    if (usuarioLogado === 'true' && dadosUsuario) {
+        console.log('Usuário logado:', dadosUsuario);
+        return true;
     } else {
-        const logado = localStorage.getItem('usuarioLogado') === 'true';
-        
-        if (!logado) {
-            // Caso não esteja logado, redireciona
-            window.location.href = '/geral.html';
-        }
+        console.log('Usuário não está logado.');
+        return false;
     }
 }
 
-// Chama a função para verificar o estado do login
-verificarLogin();*/
+window.onload = function () {
+    if (!verificarLogin() && (window.location.pathname != '/cadastro' && window.location.pathname != '/')) {
+        window.location.href = '/'; // Redireciona para o login
+    }
+};

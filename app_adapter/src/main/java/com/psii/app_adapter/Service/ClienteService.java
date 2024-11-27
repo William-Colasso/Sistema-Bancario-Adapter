@@ -1,6 +1,5 @@
 package com.psii.app_adapter.Service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +25,10 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
-
     // Método para criar um novo cliente
     public Cliente createCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
-
-    
-
 
     // Método para atualizar um cliente
     public Optional<Cliente> updateCliente(String id, Cliente cliente) {
@@ -44,17 +39,35 @@ public class ClienteService {
         return Optional.empty();
     }
 
-
-
     // Método para deletar um cliente
     public void deleteCliente(String id) {
         if (clienteRepository.existsById(id)) {
             clienteRepository.deleteById(id);
-            return ;
+            return;
         }
-        return ;
+        return;
     }
 
 
+    public Cliente autenticar(String identificador, String senha) {
+
+        Cliente clienteResposta = null;
+
+        List<Cliente> clientes = clienteRepository.findAll();
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getEmail().equals(identificador)) {
+                    clienteResposta = cliente;
+            }
+        }
+
+        return clienteResposta;
+
+    }
+
+    private boolean verificarSenha(String senha, String senhaArmazenada) {
+        return senha.equals(senhaArmazenada); // Aqui você pode usar bcrypt ou outra forma de hash, dependendo de como
+                                              // as senhas estão sendo armazenadas
+    }
 
 }

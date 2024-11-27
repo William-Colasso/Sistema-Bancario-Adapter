@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+
+    <div th:insert="~{/geral :: cssDependencie}"></div>
+</head>
+
+<body>
+
+    <div th:insert="~{/geral :: barraSuperior}"></div>
+<form action="">
+    
+        <div style="display: flex; flex-direction: column;">
+    
+            <label for="CartaoCredito">
+                CartaoCredito <input type="radio" name="CartaoCredito" class="escolhaPagamento">
+            </label>
+            <label for="transferencia">
+                transferencia <input type="radio" name="transferencia" class="escolhaPagamento">
+            </label>
+    
+    
+        </div>
+    
+    
+        <label for="valor">Valor:</label>
+        <input type="number" placeholder="valor" name="valor">
+    
+        <label for="numeroCartao">numeroCartao:</label>
+        <input type="number" placeholder="numeroCartao" name="numeroCartao">
+    
+    
+        <label for="Email">Destinatário(Email)</label>
+        <input type="email" name="Email">
+    
+        <label for="senha">senha</label>
+        <input type="password" name="senha">
+    
+    
+        <div th:insert="~{/geral :: jsDependencie}"></div>
+
+        <button type="submit">Enviar</button>
+</form>
+
+</body>
+
+</html>

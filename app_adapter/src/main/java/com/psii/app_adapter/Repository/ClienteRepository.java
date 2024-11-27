@@ -6,5 +6,4 @@ import com.psii.app_adapter.Model.Cliente;
 
 @Repository
 public interface ClienteRepository extends MongoRepository<Cliente, String> {
-    // Aqui você pode adicionar métodos personalizados, se necessário
 }
