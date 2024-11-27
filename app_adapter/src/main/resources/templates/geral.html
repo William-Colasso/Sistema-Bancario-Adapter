@@ -162,11 +162,11 @@
       <div class="criarConta">
         <h1 id="tituloCriar">Crie sua conta agora mesmo</h1>
         <div style="display: flex; flex-direction: row; gap: 30px">
-          <a th:href="@{conta/cadastro/{id}(id=2)}" class="btn-login">Login</a>
           <a th:href="@{conta/cadastro/{id}(id=1)}" class="btn-cadastro"
             >Cadastre-se</a
           >
         </div>
+        <div th:insert="~{conta/cadastro :: login-button}"></div>
       </div>
     </div>
 
