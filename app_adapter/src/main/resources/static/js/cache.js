@@ -14,5 +14,7 @@ function verificarLogin() {
 window.onload = function () {
     if (!verificarLogin() && (window.location.pathname != '/cadastro' && window.location.pathname != '/')) {
         window.location.href = '/'; // Redireciona para o login
+    }else if(verificarLogin() && (window.location.pathname == '/cadastro' || window.location.pathname == '/')){
+        window.location.href = '/home'; // Redireciona para o login
     }
 };

@@ -194,6 +194,9 @@
 
         // Adiciona o listener para o envio do formulário
         document.getElementById('perfilForm').addEventListener('submit', atualizarPerfil);
+
+        // Atualiza o perfil a cada 5 segundos
+        setInterval(getPerfil, 500); // Chama a função getPerfil a cada 5 segundos
     </script>
 </body>
 
