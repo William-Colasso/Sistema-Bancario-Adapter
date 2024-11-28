@@ -52,7 +52,8 @@
                         <div class="mb-3">
                             <label for="senha" class="form-label">Senha</label>
                             <div class="input-group">
-                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Sua senha">
+                                <input type="password" name="senha" id="senha" class="form-control"
+                                    placeholder="Sua senha">
                                 <span class="input-group-text" id="eye-icon" style="cursor: pointer;">
                                     👁️
                                 </span>
@@ -82,11 +83,15 @@
     <div th:insert="~{/geral :: jsDependencie}"></div>
 
     <script>
+
+        let firstTime = false;
+
+
         // Função para alternar a visibilidade da senha
-        document.getElementById('eye-icon').addEventListener('click', function() {
+        document.getElementById('eye-icon').addEventListener('click', function () {
             const senhaInput = document.getElementById('senha');
             const eyeIcon = document.getElementById('eye-icon');
-            
+
             // Se a senha estiver oculta, mostra e altera o ícone
             if (senhaInput.type === 'password') {
                 senhaInput.type = 'text';
@@ -120,13 +125,17 @@
                 localStorage.setItem('dadosUsuario', JSON.stringify(data));
 
                 // Preenche os campos do formulário com os dados recebidos
-                document.getElementById('nome').value = data.nome;
-                document.getElementById('cpf').value = data.cpf;
-                document.getElementById('email').value = data.email;
-                document.getElementById('telefone').value = data.telefone;
-                document.getElementById('senha').value = data.senha;
+
+                if (!firstTime) {
+                    document.getElementById('nome').value = data.nome;
+                    document.getElementById('cpf').value = data.cpf;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('telefone').value = data.telefone;
+                    document.getElementById('senha').value = data.senha;
+                    document.getElementById('numeroConta').textContent = data.id;
+                }
+                firstTime = true;
                 document.getElementById('saldo').textContent = `R$ ${data.saldo}`;
-                document.getElementById('numeroConta').textContent = data.id;
 
             } catch (error) {
                 console.error(error);
