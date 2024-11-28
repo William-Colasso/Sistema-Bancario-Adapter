@@ -22,7 +22,7 @@ public class Cliente {
     private String telefone;
 
 
-    private Double saldo;
+    private Double saldo = 0.0;
 
     public Double getSaldo() {
         return saldo;

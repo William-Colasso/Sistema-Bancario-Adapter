@@ -65,6 +65,11 @@ public class ClienteService {
 
     }
 
+
+    public Optional<Cliente> findByEmail(String email){
+        return clienteRepository.findByEmail(email);
+    }
+
     private boolean verificarSenha(String senha, String senhaArmazenada) {
         return senha.equals(senhaArmazenada); // Aqui você pode usar bcrypt ou outra forma de hash, dependendo de como
                                               // as senhas estão sendo armazenadas

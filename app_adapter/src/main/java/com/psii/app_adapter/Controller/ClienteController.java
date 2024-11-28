@@ -69,10 +69,10 @@ public ResponseEntity<?> login(@RequestParam String identificador, @RequestParam
 
 
 
-    @GetMapping("/getAll")
-    public String getAll(){
-        List<Cliente> clientes = clienteService.getAllClientes();
-        System.out.println(clientes + "AQUIIIIIIIII");
-        return "/geral";
+
+
+    @GetMapping("/pagamento/pagar")
+    public String getPagamento(Model model) {
+        return "/banco/pagar"; // Retorna a página do formulário de pagamento
     }
 }

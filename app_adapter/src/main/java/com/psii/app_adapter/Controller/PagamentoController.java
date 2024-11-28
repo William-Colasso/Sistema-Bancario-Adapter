@@ -13,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-@Controller
+@RestController // Garantir que todas as respostas são JSON
 @RequestMapping("/pagamento")
 public class PagamentoController {
 
@@ -31,42 +34,43 @@ public class PagamentoController {
     @Autowired
     private ClienteService clienteService; // Repositório do MongoDB
 
-    @GetMapping("/pagar")
-    public String getPagamento(Model model) {
-        return "/banco/pagar"; // Retorna a página do formulário de pagamento
-    }
-
     @PostMapping("/processar")
-    public ResponseEntity<String> processarPagamento(
+    public ResponseEntity<Map<String, Object>> processarPagamento(
             @RequestParam double valor,
             @RequestParam String emailDestino,
             @RequestParam String tipoPagamento,
-            @RequestParam String numeroPagamento) {
+            @RequestParam String idUsuario) {
+
+        Map<String, Object> response = new HashMap<>();
 
         // Busca o cliente pelo email
         Optional<Cliente> clienteOptional = clienteService.findByEmail(emailDestino);
 
         if (clienteOptional.isPresent()) {
             Cliente cliente = clienteOptional.get();
+            cliente.setSaldo(cliente.getSaldo() + valor);
 
-            // Verifica qual tipo de pagamento foi escolhido
-            if (tipoPagamento.equals("cartao")) {
-                adapterCartaoCredito.processarPagamento(valor, numeroPagamento);
-            } else if (tipoPagamento.equals("boleto")) {
-                pagamentoBoleto.processarPagamento(valor, numeroPagamento);
-            } else if (tipoPagamento.equals("transferencia")) {
-                transferenciaBancaria.processarPagamento(valor, numeroPagamento);
-            }
+            // Salvar o cliente atualizado
+            clienteService.createCliente(cliente);
 
-            // Atualiza o saldo do cliente
-            double novoSaldo = cliente.getSaldo() - valor;
-            cliente.setSaldo(novoSaldo);
-            clienteService.createCliente(cliente); // Salva as alterações no MongoDB
-
-            // Retorna a resposta
-            return new ResponseEntity<>("Pagamento de R$ " + valor + " realizado com sucesso. Saldo atualizado para R$ " + novoSaldo, HttpStatus.OK);
+            // Configurando a resposta de sucesso
+            response.put("success", true);
+            response.put("message", "Pagamento processado com sucesso!");
+            response.put("cliente", cliente);
         } else {
-            return new ResponseEntity<>("Cliente não encontrado com o email: " + emailDestino, HttpStatus.NOT_FOUND);
+            // Configurando a resposta de erro
+            response.put("success", false);
+            response.put("message", "Cliente não encontrado!");
         }
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List> listAllC() {
+
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.getAllClientes());
+
+    }
+
 }
