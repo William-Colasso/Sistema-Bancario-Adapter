@@ -1,0 +1,20 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    justify-items: center;
+
+}
+
+.containerPerfil{
+    margin-top: 5vh;
+    width: 50vw;
+    height: 70vh;
+    display: flex;
+    background-color: aliceblue;
+    border: solid #CCC 2px;
+    border-radius: 4px ;
+    box-shadow:  4px 4px 4px 4px rgba(0 , 0 ,0, 0.5);
+    align-self: center;
+}

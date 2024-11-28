@@ -48,28 +48,31 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-public ResponseEntity<?> login(@RequestParam String identificador, @RequestParam String senha) {
-    Cliente clienteResposta = null;
+    public ResponseEntity<?> login(@RequestParam String identificador, @RequestParam String senha) {
+        Cliente clienteResposta = null;
 
-    List<Cliente> clientes = clienteService.getAllClientes();
+        List<Cliente> clientes = clienteService.getAllClientes();
 
-    for (Cliente cliente : clientes) {
-        if (cliente.getEmail().equals(identificador) && cliente.getSenha().equals(senha)) {
-            clienteResposta = cliente;
-            break;
+        for (Cliente cliente : clientes) {
+            if (cliente.getEmail().equals(identificador) && cliente.getSenha().equals(senha)) {
+                clienteResposta = cliente;
+                break;
+            }
         }
+
+        if (clienteResposta == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
+        }
+
+        return ResponseEntity.ok(clienteResposta);
     }
 
-    if (clienteResposta == null) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
+    @GetMapping("/meuPerfil")
+    public String getPerfil(){
+
+
+        return "banco/meuPerfil";
     }
-
-    return ResponseEntity.ok(clienteResposta);
-}
-
-
-
-
 
     @GetMapping("/pagamento/pagar")
     public String getPagamento(Model model) {
