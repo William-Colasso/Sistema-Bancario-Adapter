@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Model.Pagamento;
+import com.psii.app_adapter.Service.ClienteService;
 
 // Serviço Nativo do banco
 @Service
@@ -35,6 +36,7 @@ public class PagamentoBoleto implements Pagamento {
                 Cliente clienteDestino = clienteDestinoOptional.get();
 
                 clienteDestino.setSaldo(clienteDestino.getSaldo() + valor);
+                clienteService.createCliente(clienteDestino);
                 return "GG";
             } else {
 

@@ -2,27 +2,42 @@ package com.psii.app_adapter.Service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.psii.app_adapter.Model.Cliente;
 
+@Service
 public class SistemaPix {
-    
-    @Autowired
-    private ClienteService clienteService;
+
+    private final ClienteService clienteService;
+
+    public SistemaPix(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
 
     public String pagarPix(String chavePix, double valor) {
-        
 
-        List<Cliente>clientes=clienteService.getAllClientes();
 
-        for(Cliente cliente : clientes){
-            if(cliente.getChavesPix().contains(chavePix)){
-                cliente.setSaldo(cliente.getSaldo()+valor);
-                return "GG";
+
+        try{
+            List<Cliente> clientes = clienteService.getAllClientes();
+
+        for (Cliente cliente : clientes) {
+            for(String chave : cliente.getChavesPix()){
+                if(chave.equals(chavePix)){
+                    cliente.setSaldo(cliente.getSaldo()+valor);
+                    clienteService.createCliente(cliente);
+                    System.out.println("isiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadj");
+                    return "GG";
+                }
             }
         }
-
+        }catch(Error e){
+            e.printStackTrace();
+        }
+        
         return "Chave não encontrada.";
+        
     }
+
 }

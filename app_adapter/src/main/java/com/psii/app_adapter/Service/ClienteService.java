@@ -1,6 +1,7 @@
 package com.psii.app_adapter.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.psii.app_adapter.Model.Cliente;
@@ -66,13 +67,8 @@ public class ClienteService {
     }
 
 
-    public Optional<Cliente> findByEmail(String email){
-        return clienteRepository.findByEmail(email);
-    }
+    
 
-    private boolean verificarSenha(String senha, String senhaArmazenada) {
-        return senha.equals(senhaArmazenada); // Aqui você pode usar bcrypt ou outra forma de hash, dependendo de como
-                                              // as senhas estão sendo armazenadas
-    }
+    
 
 }
