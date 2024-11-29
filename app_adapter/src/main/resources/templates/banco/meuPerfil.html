@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org/">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <div th:insert="~{/geral :: cssDependencie}"></div>
     <link rel="stylesheet" th:href="@{/css/perfil.css}">
 </head>
-
 <body>
 
     <div th:insert="~{/geral :: barraSuperior}"></div>
@@ -71,6 +69,14 @@
                             <p id="saldo" class="form-control-plaintext">R$ 0,00</p>
                         </div>
 
+                        <!-- Opções de Chave Pix -->
+                        <div class="mb-3">
+                            <label for="chavesPix" class="form-label">Escolha sua Chave Pix</label><br>
+                            <input type="checkbox" id="chaveCpf" value="cpf" th:checked="${cpfMarcado}"> CPF<br>
+                            <input type="checkbox" id="chaveEmail" value="email" th:checked="${emailMarcado}"> E-mail<br>
+                            <input type="checkbox" id="chaveTelefone" value="telefone" th:checked="${telefoneMarcado}"> Telefone
+                        </div>
+
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary">Atualizar Perfil</button>
                         </div>
@@ -83,7 +89,6 @@
     <div th:insert="~{/geral :: jsDependencie}"></div>
 
     <script>
-
         // Função para aplicar máscara no campo CPF
         document.getElementById('cpf').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
@@ -97,9 +102,7 @@
             e.target.value = formatted;
         });
 
-
         let firstTime = false;
-
 
         // Função para alternar a visibilidade da senha
         document.getElementById('eye-icon').addEventListener('click', function () {
@@ -151,10 +154,22 @@
                 firstTime = true;
                 document.getElementById('saldo').textContent = `R$ ${data.saldo}`;
 
+                // Marcar as checkboxes com base nas chaves Pix
+                if (data.chavesPix.includes(data.cpf)) {
+                    document.getElementById('chaveCpf').checked = true;
+                }
+                if (data.chavesPix.includes(data.email)) {
+                    document.getElementById('chaveEmail').checked = true;
+                }
+                if (data.chavesPix.includes(data.telefone)) {
+                    document.getElementById('chaveTelefone').checked = true;
+                }
+
             } catch (error) {
                 console.error(error);
             }
         }
+
 
         // Função para atualizar os dados do perfil
         async function atualizarPerfil(event) {
@@ -175,6 +190,12 @@
             const senha = document.getElementById('senha').value;
             const telefone = document.getElementById('telefone').value;
             
+            // Verifica qual checkbox está selecionado para definir a chave Pix
+            let chavePix = [];
+            if (document.getElementById('chaveCpf').checked) chavePix.push(cpf);
+            if (document.getElementById('chaveEmail').checked) chavePix.push(email);
+            if (document.getElementById('chaveTelefone').checked) chavePix.push(telefone);
+
             // Cria o objeto com os dados atualizados
             const dadosAtualizados = {
                 id,
@@ -182,7 +203,8 @@
                 cpf,
                 email,
                 senha,
-                telefone
+                telefone,
+                chavesPix: chavePix // Adiciona a lista de chaves Pix
             };
 
             try {
@@ -196,31 +218,22 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error('Erro ao atualizar os dados');
+                    throw new Error('Erro ao atualizar perfil');
                 }
 
-                const data = await response.json();
-
-                // Atualiza os dados no localStorage com a resposta
-                localStorage.setItem('dadosUsuario', JSON.stringify(data));
-
-                alert('Perfil atualizado com sucesso!'); // Exibe um alerta de sucesso
-
+                // Exibe uma mensagem de sucesso
+                alert('Perfil atualizado com sucesso!');
             } catch (error) {
                 console.error(error);
-                alert('Erro ao atualizar o perfil');
+                alert('Erro ao atualizar perfil');
             }
         }
 
-        // Chama a função getPerfil ao carregar a página
-        document.addEventListener('DOMContentLoaded', getPerfil);
+        // Chama a função getPerfil para carregar os dados do perfil
+        getPerfil();
 
-        // Adiciona o listener para o envio do formulário
+        // Adiciona o evento de envio do formulário
         document.getElementById('perfilForm').addEventListener('submit', atualizarPerfil);
-
-        // Atualiza o perfil a cada 5 segundos
-        setInterval(getPerfil, 500); // Chama a função getPerfil a cada 5 segundos
     </script>
 </body>
-
 </html>

@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "clientes")
@@ -23,7 +24,7 @@ public class Cliente {
 
     private Double saldo = 0.0;
 
-    private List<String>chavesPix;
+    private List<String> chavesPix = new ArrayList<>();  // Inicializa a lista para evitar NullPointerException
 
     public Double getSaldo() {
         return saldo;
@@ -74,8 +75,6 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-
-
     public String getSenha() {
         return senha;
     }
@@ -91,6 +90,4 @@ public class Cliente {
     public void setChavesPix(List<String> chavesPix) {
         this.chavesPix = chavesPix;
     }
-
-    
 }
