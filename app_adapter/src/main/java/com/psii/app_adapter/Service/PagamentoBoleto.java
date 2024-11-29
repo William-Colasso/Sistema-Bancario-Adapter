@@ -37,10 +37,13 @@ public class PagamentoBoleto implements Pagamento {
 
                 clienteDestino.setSaldo(clienteDestino.getSaldo() + valor);
                 clienteService.createCliente(clienteDestino);
+                boletoService.createBoleto(boleto);
                 return "GG";
             } else {
 
                 if (boleto.getValor() != valor) {
+                    System.out.println(valor);
+                    System.out.println(boleto.getValor());
                     erro += "{Valores não coincidem}";
                 }
 

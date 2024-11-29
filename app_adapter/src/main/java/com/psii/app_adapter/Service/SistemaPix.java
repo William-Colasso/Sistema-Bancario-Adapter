@@ -27,7 +27,6 @@ public class SistemaPix {
                 if(chave.equals(chavePix)){
                     cliente.setSaldo(cliente.getSaldo()+valor);
                     clienteService.createCliente(cliente);
-                    System.out.println("isiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadjisiajdiadaisdiaidajdsadj");
                     return "GG";
                 }
             }

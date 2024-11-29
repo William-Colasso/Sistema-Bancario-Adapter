@@ -171,7 +171,7 @@
             const payload = new URLSearchParams({
                 idUsuario,
                 tipoPagamento,
-                valor: tipoPagamento === 'BOLETO' ? '' : valor,
+                valor: tipoPagamento === 'BOLETO' ? 1 : valor,
                 campoDinamico
             });
 
@@ -186,7 +186,7 @@
                         alert(data.message);
                         // Limpar os campos após o pagamento ser realizado
                         document.getElementById('valor').value = '';
-                        document.getElementById('emailDestino').value = '';
+                        document.getElementById('campoDinamico').value = '';
                     } else {
                         alert(`Erro: ${data.message}`);
                     }

@@ -1,10 +1,12 @@
 package com.psii.app_adapter.Controller;
 
+import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Service.PagamentoBoleto;
 import com.psii.app_adapter.Service.TransferenciaBancaria;
 import com.psii.app_adapter.Service.AdapterPix; // Usando o Adapter como temporário para "Pix"
 import com.psii.app_adapter.Service.ClienteService;
+import com.psii.app_adapter.Service.BoletoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class PagamentoController {
     private AdapterPix adapterPix;
 
     @Autowired
+    private BoletoService boletoService;
+
+    @Autowired
     private PagamentoBoleto pagamentoBoleto;
 
     @Autowired
@@ -40,6 +45,14 @@ public class PagamentoController {
             @RequestParam String idUsuario) { // ID ou email do cliente que realiza o pagamento
 
         Map<String, Object> response = new HashMap<>();
+
+        Boleto boleto = new Boleto();
+
+        if (tipoPagamento.equals("BOLETO"'') ) {
+            boleto = boletoService.getBoletoById(campoDinamico).get();
+            valor = boleto.getValor();
+            System.out.println(valor);
+        }
 
         // Validação do valor
         if (valor <= 0) {
@@ -68,19 +81,20 @@ public class PagamentoController {
             case "PIX":
                 resultado = adapterPix.processarPagamento(valor, campoDinamico);
                 response.put("message",
-                        resultado.equals("GG") ? "Valor transferido com PIX!" : "Erro no pagamento via PIX.");
+                        resultado.equals("GG") ? "Valor transferido com PIX!" : resultado);
                 break;
 
             case "BOLETO":
-                resultado = pagamentoBoleto.processarPagamento(valor, campoDinamico);
+                String codigoBoleto = campoDinamico.toString();
+                resultado = pagamentoBoleto.processarPagamento(valor, codigoBoleto);
                 response.put("message",
-                        resultado.equals("GG") ? "Valor transferido com boleto!" : "Erro no pagamento via boleto.");
+                        resultado.equals("GG") ? "Valor transferido com boleto!" : resultado);
                 break;
 
             case "TRANSFERENCIA":
                 resultado = transferenciaBancaria.processarPagamento(valor, campoDinamico);
                 response.put("message", resultado.equals("GG") ? "Valor transferido via transferência bancária!"
-                        : "Erro no pagamento via transferência.");
+                        : resultado);
                 break;
 
             default:
@@ -90,9 +104,10 @@ public class PagamentoController {
 
         // Atualizar saldo do cliente após pagamento bem-sucedido
 
-        clienteOrigem.setSaldo(clienteOrigem.getSaldo() - valor);
-        clienteService.createCliente(clienteOrigem); // Presume-se que existe este método para salvar a atualização
-
+        if (resultado.equals("GG")) {
+            clienteOrigem.setSaldo(clienteOrigem.getSaldo() - valor);
+            clienteService.createCliente(clienteOrigem); // Presume-se que existe este método para salvar a atualização
+        }
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
