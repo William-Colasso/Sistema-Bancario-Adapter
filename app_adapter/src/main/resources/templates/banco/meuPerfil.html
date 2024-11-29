@@ -84,6 +84,20 @@
 
     <script>
 
+        // Função para aplicar máscara no campo CPF
+        document.getElementById('cpf').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+            if (value.length > 11) value = value.slice(0, 11); // Limita o tamanho a 11 caracteres
+
+            // Adiciona os pontos e o traço na formatação
+            const formatted = value.replace(/(\d{3})(\d)/, '$1.$2') // Primeiro ponto
+                                .replace(/(\d{3})(\d)/, '$1.$2') // Segundo ponto
+                                .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Traço
+
+            e.target.value = formatted;
+        });
+
+
         let firstTime = false;
 
 

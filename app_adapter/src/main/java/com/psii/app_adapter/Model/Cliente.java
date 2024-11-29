@@ -21,8 +21,9 @@ public class Cliente {
 
     private String telefone;
 
-
     private Double saldo = 0.0;
+
+    private List<String>chavesPix;
 
     public Double getSaldo() {
         return saldo;
@@ -81,6 +82,14 @@ public class Cliente {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<String> getChavesPix() {
+        return chavesPix;
+    }
+
+    public void setChavesPix(List<String> chavesPix) {
+        this.chavesPix = chavesPix;
     }
 
     

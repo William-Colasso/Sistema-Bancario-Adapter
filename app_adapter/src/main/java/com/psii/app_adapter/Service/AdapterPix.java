@@ -8,7 +8,7 @@ public class AdapterPix implements Pagamento {
     private final SistemaPix sistemaPix = new SistemaPix();
     
     @Override
-    public void processarPagamento(double valor, String chavePix) {
-        sistemaPix.pagarPix(chavePix, valor);
+    public String processarPagamento(double valor, String chavePix) {
+        return sistemaPix.pagarPix(chavePix, valor);
     }
 }
