@@ -184,6 +184,9 @@
                 .then(data => {
                     if (data.success) {
                         alert(data.message);
+                        // Limpar os campos após o pagamento ser realizado
+                        document.getElementById('valor').value = '';
+                        document.getElementById('emailDestino').value = '';
                     } else {
                         alert(`Erro: ${data.message}`);
                     }

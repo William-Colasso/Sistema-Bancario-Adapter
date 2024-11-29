@@ -21,7 +21,7 @@ import java.util.Optional;
 public class PagamentoController {
 
     @Autowired
-    private AdapterPix adapterPix; // Adapter para Cartão (atualmente substituindo o Pix)
+    private AdapterPix adapterPix;
 
     @Autowired
     private PagamentoBoleto pagamentoBoleto;
