@@ -62,31 +62,29 @@
         .radio-container label {
             margin-right: 20px;
         }
+
+        .payment-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+            vertical-align: middle;
+        }
+
+        .conditional-input {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .conditional-input.active {
+            display: block;
+        }
     </style>
-    <link rel="stylesheet" th:href="@{/css/geral.css}" />
-    <link rel="stylesheet" th:href="@{/css/paginaPrincipal.css}" />
+
+<link rel="stylesheet" th:href="@{/css/geral.css}" />
+<link rel="stylesheet" th:href="@{/css/paginaPrincipal.css}" />
 </head>
 
 <body>
-
-
-
     <div th:insert="~{/geral :: barraSuperior}"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="container">
         <h3 class="mb-4">Realizar Pagamento</h3>
@@ -95,24 +93,33 @@
         <div class="radio-container">
             <label class="form-label">Tipo de Pagamento:</label>
             <div>
-                <input type="radio" name="tipoPagamento" id="pix" value="PIX" checked>
-                <label for="pix">PIX</label>
+                <input type="radio" name="tipoPagamento" id="pix" value="PIX" checked onchange="atualizarCampo()">
+                <label for="pix">
+                    <i class="fas fa-qrcode payment-icon"></i>PIX
+                </label>
 
-                <input type="radio" name="tipoPagamento" id="boleto" value="BOLETO">
-                <label for="boleto">Boleto</label>
+                <input type="radio" name="tipoPagamento" id="boleto" value="BOLETO" onchange="atualizarCampo()">
+                <label for="boleto">
+                    <i class="fas fa-barcode payment-icon"></i>Boleto
+                </label>
 
-                <input type="radio" name="tipoPagamento" id="transferencia" value="TRANSFERENCIA">
-                <label for="transferencia">Transferência Bancária</label>
+                <input type="radio" name="tipoPagamento" id="transferencia" value="TRANSFERENCIA" onchange="atualizarCampo()">
+                <label for="transferencia">
+                    <i class="fas fa-university payment-icon"></i>Transferência Bancária
+                </label>
             </div>
         </div>
 
-        <!-- Valor e Email -->
-        <div class="value-email-container">
+        <!-- Valor -->
+        <div class="value-email-container" id="valorContainer">
             <label for="valor" class="form-label">Valor</label>
             <input type="number" id="valor" class="form-control" placeholder="Digite o valor do pagamento" min="0">
+        </div>
 
-            <label for="emailDestino" class="form-label" style="margin-top: 15px;">Email de Destino</label>
-            <input type="email" id="emailDestino" class="form-control" placeholder="Digite o email do destinatário">
+        <!-- Campo condicional -->
+        <div id="campoCondicional" class="conditional-input">
+            <label id="campoLabel" class="form-label">Email</label>
+            <input type="text" id="campoDinamico" class="form-control" placeholder="Digite o email">
         </div>
 
         <!-- Botão de Confirmação -->
@@ -120,6 +127,30 @@
     </div>
 
     <script>
+        function atualizarCampo() {
+            const tipoPagamento = document.querySelector('input[name="tipoPagamento"]:checked').value;
+            const campoCondicional = document.getElementById('campoCondicional');
+            const campoLabel = document.getElementById('campoLabel');
+            const campoDinamico = document.getElementById('campoDinamico');
+            const valorContainer = document.getElementById('valorContainer');
+
+            if (tipoPagamento === 'PIX') {
+                campoLabel.textContent = 'Email';
+                campoDinamico.placeholder = 'Digite o email';
+                valorContainer.style.display = 'block';
+            } else if (tipoPagamento === 'BOLETO') {
+                campoLabel.textContent = 'Código do Boleto';
+                campoDinamico.placeholder = 'Digite o código do boleto';
+                valorContainer.style.display = 'none';
+            } else if (tipoPagamento === 'TRANSFERENCIA') {
+                campoLabel.textContent = 'Código da Conta';
+                campoDinamico.placeholder = 'Digite o código da conta';
+                valorContainer.style.display = 'block';
+            }
+
+            campoCondicional.classList.add('active');
+        }
+
         function confirmarPagamento() {
             const dadosUsuario = JSON.parse(localStorage.getItem('dadosUsuario'));
             if (!dadosUsuario || !dadosUsuario.id) {
@@ -130,9 +161,9 @@
             const idUsuario = dadosUsuario.id;
             const tipoPagamento = document.querySelector('input[name="tipoPagamento"]:checked').value;
             const valor = document.getElementById('valor').value;
-            const emailDestino = document.getElementById('emailDestino').value;
+            const campoDinamico = document.getElementById('campoDinamico').value;
 
-            if (!valor || !emailDestino) {
+            if ((tipoPagamento !== 'BOLETO' && !valor) || !campoDinamico) {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
@@ -140,13 +171,13 @@
             const payload = new URLSearchParams({
                 idUsuario,
                 tipoPagamento,
-                valor,
-                emailDestino
+                valor: tipoPagamento === 'BOLETO' ? '' : valor,
+                campoDinamico
             });
 
             fetch('/pagamento/processar', {
                 method: 'POST',
-                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: payload.toString()
             })
                 .then(response => response.json())
@@ -159,14 +190,11 @@
                 })
                 .catch(error => console.error('Erro:', error));
         }
-
-
     </script>
 
-   
-    <script th:src="@{/js/login.js}"></script>
-    <script th:src="@{/js/cache.js}"></script>
-    <div th:insert="~{/geral :: jsDependencie}"></div>
+<script th:src="@{/js/login.js}"></script>
+<script th:src="@{/js/cache.js}"></script>
+<div th:insert="~{/geral :: jsDependencie}"></div>
 </body>
 
 </html>

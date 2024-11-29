@@ -35,7 +35,7 @@ public class PagamentoController {
     @PostMapping("/processar")
     public ResponseEntity<Map<String, Object>> processarPagamento(
             @RequestParam double valor,
-            @RequestParam String emailDestino, // Email do cliente que vai receber o pagamento
+            @RequestParam String campoDinamico, // Email do cliente que vai receber o pagamento
             @RequestParam String tipoPagamento, // Tipo de pagamento: pix, boleto, transferência
             @RequestParam String idUsuario) { // Email do cliente que está fazendo o pagamento (não será mais
                                                 // necessário)
@@ -51,7 +51,7 @@ public class PagamentoController {
         }
 
         // Busca o cliente de destino pelo email
-        Optional<Cliente> clienteDestinoOptional = clienteService.findByEmail(emailDestino);
+        Optional<Cliente> clienteDestinoOptional = clienteService.findByEmail(campoDinamico);
 
         // Busca o cliente de origem pelo idUsuario (não usa mais o emailOrigem)
         Optional<Cliente> clienteOrigemOptional = clienteService.getClienteById(idUsuario); // Ajustado para buscar por
