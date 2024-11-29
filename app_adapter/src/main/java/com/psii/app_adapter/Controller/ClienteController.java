@@ -62,7 +62,7 @@ public class ClienteController {
 
     @GetMapping("/meuPerfil")
     public String getPerfil() {
-        return "banco/meuPerfil";
+        return "/banco/meuPerfil";
     }
 
     @GetMapping("/perfil/{id}")
@@ -78,6 +78,12 @@ public class ClienteController {
     @PostMapping("/perfil")
     public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
         // Salva o cliente no banco de dados
+        Optional<Cliente> cliOptional = clienteService.getClienteById(cliente.getId());
+
+        if(cliOptional.isPresent()){
+            cliente.setSaldo(cliOptional.get().getSaldo());
+        }
+        
         Cliente clienteSalvo = clienteService.createCliente(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo); // Retorna o cliente criado com o status
                                                                              // 201
