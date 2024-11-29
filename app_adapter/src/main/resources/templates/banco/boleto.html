@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Boletos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .card {
+            border: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+        }
+
+        .status-pago {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .status-pendente {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .btn-create {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-create:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+        }
+
+        .btn-action {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .btn-action:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-copy {
+            background-color: #ffc107;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .btn-copy:hover {
+            background-color: #e0a800;
+        }
+
+        .table-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .table-actions button {
+            margin: 0 5px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+<link rel="stylesheet" th:href="@{/css/geral.css}" />
+<link rel="stylesheet" th:href="@{/css/paginaPrincipal.css}" />
+</head>
+
+<body>
+    <div th:insert="~{/geral :: barraSuperior}"></div>
+    <div class="container">
+        <!-- Card para Lista de Boletos -->
+        <div class="card">
+            <div class="card-header">
+                Lista de Boletos
+            </div>
+            <div class="card-body">
+                <!-- Tabela de boletos -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Valor (R$)</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="boleto : ${boletos}">
+                            <td th:text="${boleto.id}" th:value="${boleto.id}">123456789</td>
+                            <td th:text="${boleto.valor}">100,00</td>
+                            <td>
+                                <span th:classappend="${boleto.pago} ? 'status-pago' : 'status-pendente'"
+                                    th:text="${boleto.pago} ? 'Pago' : 'Pendente'">Pendente</span>
+                            </td>
+                            <td class="table-actions">
+                                <button class="btn-copy" id="copy" onclick="copyToClipboard('${boleto.id}')">Copiar</button>
+                                <form th:action="@{/boletos/deletar/{id}(id=${boleto.id})}" method="post">
+                                    <button type="submit" class="btn-delete" id="delete">Deletar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(boletos)}">
+                            <td colspan="4" class="text-center">Nenhum boleto cadastrado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Card para Criar Novo Boleto -->
+        <div class="card mt-4">
+            <div class="card-header text-center">
+                Criar Novo Boleto
+            </div>
+            <div class="card-body">
+                <form id="formCriarBoleto" th:action="@{/boletos/novo}" method="POST">
+                    <div class="form-group">
+                        <label for="valor">Valor</label>
+                        <input type="number" id="valor" name="valor" class="form-control" required step="0.01"
+                            placeholder="Valor do boleto" />
+                    </div>
+                    <input type="hidden" id="idCliente" name="idCliente" />
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary">Criar Boleto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Função para copiar o ID do boleto para a área de transferência
+        function copyToClipboard(boletoId) {
+            const tempInput = document.createElement('input');
+            tempInput.value = boletoId;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('ID copiado para a área de transferência!');
+        }
+
+        // Pega o ID do cliente do localStorage e preenche o campo oculto do formulário
+        window.onload = function () {
+            const dadosUsuario = JSON.parse(localStorage.getItem('dadosUsuario'));
+            if (dadosUsuario && dadosUsuario.id) {
+                // Preenche o campo 'idCliente' com o ID do cliente
+                document.getElementById('idCliente').value = dadosUsuario.id;
+            }
+        };
+    </script>
+    <div th:insert="~{/geral :: jsDependencie}"></div>
+</body>
+
+</html>
