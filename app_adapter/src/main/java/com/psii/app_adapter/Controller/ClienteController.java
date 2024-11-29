@@ -61,32 +61,57 @@ public class ClienteController {
     }
 
     @GetMapping("/meuPerfil")
-    public String getPerfil() {
-        return "/banco/meuPerfil";
+    public String getPerfil(Model model) {
+        // Suponhamos que você já tem o cliente logado ou o id do cliente
+        Cliente cliente = clienteService.getClienteById("id-do-cliente").orElse(new Cliente());
+
+        // Aqui você vai verificar qual chave Pix está cadastrada para esse cliente
+        // Você pode criar variáveis para indicar se o CPF, Email ou Telefone estão cadastrados como chave Pix
+        boolean cpfMarcado = cliente.getChavesPix().contains(cliente.getCpf());
+        boolean emailMarcado = cliente.getChavesPix().contains(cliente.getEmail());
+        boolean telefoneMarcado = cliente.getChavesPix().contains(cliente.getTelefone());
+
+        // Passa esses valores para o modelo
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("cpfMarcado", cpfMarcado);
+        model.addAttribute("emailMarcado", emailMarcado);
+        model.addAttribute("telefoneMarcado", telefoneMarcado);
+
+        return "/banco/meuPerfil"; // A página de perfil do cliente
     }
+
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<Cliente> getCliente(@PathVariable String id) {
         Optional<Cliente> cliente = clienteService.getClienteById(id);
         if (cliente.isPresent()) {
-            return ResponseEntity.ok(cliente.get()); // Retorna o cliente como JSON
+            return ResponseEntity.ok(cliente.get());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Retorna 404 se o cliente não for encontrado
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    // Endpoint POST para receber os dados do cliente e salvar no banco de dados
     @PostMapping("/perfil")
     public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
-        // Salva o cliente no banco de dados
         Optional<Cliente> cliOptional = clienteService.getClienteById(cliente.getId());
 
-        if(cliOptional.isPresent()){
+        if (cliOptional.isPresent()) {
+            // Aqui você vai verificar qual chave Pix foi selecionada
+            // Por exemplo, se a chave Pix for um CPF, e você recebeu uma chave CPF, você pode atualizar a chavePix do cliente
+            if (cliente.getChavesPix().contains(cliente.getCpf())) {
+                // Marca a chave CPF, no front-end
+            }
+            if (cliente.getChavesPix().contains(cliente.getEmail())) {
+                // Marca a chave Email, no front-end
+            }
+            if (cliente.getChavesPix().contains(cliente.getTelefone())) {
+                // Marca a chave Telefone, no front-end
+            }
+
             cliente.setSaldo(cliOptional.get().getSaldo());
         }
-        
+
         Cliente clienteSalvo = clienteService.createCliente(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo); // Retorna o cliente criado com o status
-                                                                             // 201
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
     }
 
     @GetMapping("/pagamento/pagar")
