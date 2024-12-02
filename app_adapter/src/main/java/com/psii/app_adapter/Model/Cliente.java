@@ -9,6 +9,7 @@ import java.util.List;
 
 @Document(collection = "clientes")
 public class Cliente {
+
     @Id
     private String id;
 
@@ -24,6 +25,7 @@ public class Cliente {
 
     private Double saldo = 0.0;
 
+    
     private List<String> chavesPix = new ArrayList<>();  // Inicializa a lista para evitar NullPointerException
 
     public Double getSaldo() {

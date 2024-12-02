@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Service.ClienteService;
 
@@ -30,16 +32,19 @@ public class ClienteController {
     }
 
     @PostMapping("/clientes")
-    public String postClientes(Cliente cliente) {
+    public String postClientes(Cliente cliente, RedirectAttributes redirectAttributes) {
 
-        if (clienteService.isCliente(cliente)) {
-
+        if (clienteService.clienteJaCadastrado(cliente)) {
+            redirectAttributes.addFlashAttribute("mapCliente", clienteService.findByAny(cliente.getCpf(), cliente.getTelefone(), cliente.getNome(), cliente.getEmail()));
+            System.out.println("AJSDASDNAJLDNILA");
+            return "redirect:/cadastro";
         } else {
 
             clienteService.createCliente(cliente);
-        }
 
+        }
         return "redirect:/home";
+        
     }
 
     @GetMapping("/cadastro")

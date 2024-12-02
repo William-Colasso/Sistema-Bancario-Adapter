@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Repository.ClienteRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -65,14 +67,25 @@ public class ClienteService {
 
     }
 
-    public Optional<Cliente> findByCliente(Cliente cliente) {
+    public Map<String, Object> findByAny(String cpf, String telefone, String nome, String email) {
 
-        return clienteRepository.findByCliente(cliente);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("CPF", clienteRepository.findByCpf(cpf).isPresent());
+        
+        response.put("TELEFONE", clienteRepository.findByTelefone(telefone).isPresent());
+
+        response.put("NOME", clienteRepository.findByNome(nome).isPresent());
+
+        response.put("EMAIL", clienteRepository.findByEmail(email).isPresent());
+
+        return response;
     }
 
-    public Boolean isCliente(Cliente cliente) {
-
-        return findByCliente(cliente).isPresent();
+    public Boolean clienteJaCadastrado(Cliente cliente) {
+        return findByAny(cliente.getCpf(), cliente.getTelefone(), cliente.getNome(), cliente.getEmail())
+               .containsValue(true);
     }
-
+    
 }

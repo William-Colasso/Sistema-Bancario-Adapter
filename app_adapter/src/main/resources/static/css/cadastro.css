@@ -1,14 +1,17 @@
-body {
+html,body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+
     display: flex;
     overflow: hidden;
+    gap: 33px;
 }
 
 .form-container {
@@ -107,4 +110,8 @@ body {
 #loginCad {
     background-color: white;
     color: #0056b3;
+}
+
+.colorError{
+    color: red;
 }

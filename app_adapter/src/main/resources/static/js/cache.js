@@ -26,16 +26,21 @@ window.onload = function () {
   }
 };
 
+
+
 async function atualizarSaldo() {
   var dadosUsuario = JSON.parse(localStorage.getItem("dadosUsuario"));
 
-  const body = {
-    id: dadosUsuario.id,
-  };
+  if (dadosUsuario) {
+    const body = {
+      id: dadosUsuario.id,
+    };
+  }
+
   var saldos = document.querySelectorAll(".saldo");
 
   var saldosF = document.querySelector(".saldo");
-  
+
   if (saldosF) {
     try {
       // Envia os dados atualizados para a rota POST
@@ -61,13 +66,15 @@ async function atualizarSaldo() {
       saldos.forEach((saldo) => {
         saldo.innerText = `Saldo R$${saldoAtualizado.toFixed(2)}`;
       });
-    
+
     } catch (error) {
       console.error(error);
       alert("Erro ao se comunicar com o servidor");
     }
   }
 }
+
+
 
 
 setInterval(atualizarSaldo, 2000);
