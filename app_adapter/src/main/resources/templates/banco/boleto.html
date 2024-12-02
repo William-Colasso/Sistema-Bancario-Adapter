@@ -61,14 +61,13 @@
                   >
                     Copiar
                   </button>
-                  <form
-                    th:action="@{/boletos/deletar/{id}(id=${boleto.id})}"
-                    method="post"
-                  >
+                  <form th:action="@{/boletos/deletar/}" method="post">
+                    <input type="hidden" th:name="id" th:value="${boleto.id}" />
                     <button type="submit" class="btn-delete" id="delete">
-                      Deletar
+                        Deletar
                     </button>
-                  </form>
+                </form>
+                
                 </td>
               </tr>
               <tr th:if="${#lists.isEmpty(boletos)}">

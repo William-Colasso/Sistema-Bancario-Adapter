@@ -9,7 +9,6 @@ import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Model.Pagamento;
 
-
 // Serviço Nativo do banco
 @Service
 public class PagamentoBoleto implements Pagamento {
@@ -22,41 +21,48 @@ public class PagamentoBoleto implements Pagamento {
 
     @Override
     public String processarPagamento(double valor, String codigo) {
-        Optional<Boleto> boletoOptional = boletoService.getBoletoById(codigo);
+        try {
+            Optional<Boleto> boletoOptional = boletoService.getBoletoById(codigo);
+            String erro = "";
 
-        String erro = "";
+            if (!boletoOptional.isEmpty()) {
+                Boleto boleto = boletoOptional.get();
 
-        if (boletoOptional.isPresent()) {
-            Boleto boleto = boletoOptional.get();
+                Optional<Cliente> clienteDestinoOptional = clienteService.getClienteById(boleto.getIdCliente());
 
-            Optional<Cliente> clienteDestinoOptional = clienteService.getClienteById(boleto.getIdCliente());
+                if ((boleto.getValor() == valor && !boleto.isPago()) && clienteDestinoOptional.isPresent()) {
+                    boleto.setPago(true);
+                    Cliente clienteDestino = clienteDestinoOptional.get();
 
-            if ((boleto.getValor() == valor && !boleto.isPago()) && clienteDestinoOptional.isPresent()) {
-                boleto.setPago(true);
-                Cliente clienteDestino = clienteDestinoOptional.get();
+                    clienteDestino.setSaldo(clienteDestino.getSaldo() + valor);
+                    clienteService.createCliente(clienteDestino);
+                    boletoService.createBoleto(boleto);
+                    return "GG";
+                } else {
 
-                clienteDestino.setSaldo(clienteDestino.getSaldo() + valor);
-                clienteService.createCliente(clienteDestino);
-                boletoService.createBoleto(boleto);
-                return "GG";
+                    if (boleto.getValor() != valor) {
+                        System.out.println(valor);
+                        System.out.println(boleto.getValor());
+                        erro += "{Valores não coincidem}";
+                    }
+
+                    if (boleto.isPago()) {
+                        erro += "{O boleto já está pago}";
+                    }
+                    if (clienteDestinoOptional.isEmpty()) {
+                        erro += "{O Cliente não existe}";
+                    }
+
+                    return "Houve um erro no pagamento do boleto, erro: " + erro;
+                }
             } else {
-
-                if (boleto.getValor() != valor) {
-                    System.out.println(valor);
-                    System.out.println(boleto.getValor());
-                    erro += "{Valores não coincidem}";
-                }
-
-                if (boleto.isPago()) {
-                    erro += "{O boleto já está pago}";
-                }
-                if (clienteDestinoOptional.isEmpty()) {
-                    erro += "{O Cliente não existe}";
-                }
-
-                return "Houve um erro no pagamento do boleto, erro: " + erro;
+                erro += "Boleto não encontrado";
             }
+            return erro;
+        } catch (Error e) {
+            e.printStackTrace();
+            return "Boleto Não existe";
         }
-        return "O boleto não existe!";
+
     }
 }

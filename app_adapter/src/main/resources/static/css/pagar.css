@@ -1,66 +1,102 @@
 body {
-    font-family: "Arial", sans-serif;
-    background-color: #f4f6f9;
-    color: #333;
-    padding: 20px;
-  }
+  font-family: "Arial", sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  padding: 20px;
+}
 
-  .container {
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    border-radius: 8px;
-  }
+.container {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  .form-label {
-    font-weight: bold;
-    color: #5a5a5a;
-  }
+h3 {
+  text-align: center;
+  font-size: 24px;
+  color: #0d6efd;
+  margin-bottom: 30px;
+}
 
-  .form-control {
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-shadow: none;
-  }
+.form-label {
+  font-weight: bold;
+  color: #5a5a5a;
+}
 
-  .submit-btn {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+.form-control {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
 
-  .submit-btn:hover {
-    background-color: #004c97;
-  }
+.submit-btn {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 20px;
+}
 
-  .value-email-container {
-    margin-top: 20px;
-  }
+.submit-btn:hover {
+  background-color: #004c97;
+}
 
-  .radio-container {
-    margin-top: 20px;
-  }
+.value-email-container {
+  margin-top: 20px;
+}
 
-  .radio-container label {
-    margin-right: 20px;
-  }
+.radio-container {
+  margin-top: 20px;
+}
 
-  .payment-icon {
-    margin-right: 8px;
-    font-size: 1.2em;
-    vertical-align: middle;
-  }
+.radio-container label {
+  margin-right: 20px;
+}
 
-  .conditional-input {
-    display: none;
-    margin-top: 15px;
-  }
+.payment-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+  vertical-align: middle;
+}
 
-  .conditional-input.active {
-    display: block;
-  }
+.conditional-input {
+  display: none;
+  margin-top: 15px;
+}
+
+.conditional-input.active {
+  display: block;
+}
+
+/* Estilo para o saldo */
+.saldo {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  font-size: 20px;
+  color: #495057;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.saldo strong {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 24px;
+}
+
+.saldo small {
+  display: block;
+  margin-top: 5px;
+  color: #6c757d;
+  font-size: 16px;
+}

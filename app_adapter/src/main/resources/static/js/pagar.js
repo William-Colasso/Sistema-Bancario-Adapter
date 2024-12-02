@@ -57,7 +57,7 @@ function atualizarCampo() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+        if (data) {
           alert(data.message);
           // Limpar os campos após o pagamento ser realizado
           document.getElementById("valor").value = "";

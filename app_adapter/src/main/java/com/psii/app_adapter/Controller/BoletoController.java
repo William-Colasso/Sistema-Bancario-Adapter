@@ -12,7 +12,7 @@ import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Service.BoletoService;
 import com.psii.app_adapter.Service.ClienteService;
-
+import java.util.Optional;
 import java.util.List;
 
 @Controller
@@ -56,14 +56,14 @@ public class BoletoController {
     }
 
 
-    @PostMapping("/boletos/deletar/{id}")
-    public String deletarBoleto(@PathVariable String id){
-
-
+    @PostMapping("/boletos/deletar/")
+    public String deletarBoleto(@RequestParam String id){
+        
+        String idCliente = boletoService.getBoletoById(id).get().getIdCliente();
         boletoService.deleteBoleto(id);
 
 
-        return "redirect:/boletos";
+        return "redirect:/boletos/"+idCliente;
     }
 
 }

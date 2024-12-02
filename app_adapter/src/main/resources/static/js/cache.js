@@ -31,8 +31,11 @@ window.onload = function () {
 async function atualizarSaldo() {
   var dadosUsuario = JSON.parse(localStorage.getItem("dadosUsuario"));
 
-  if (dadosUsuario) {
-    const body = {
+  console.log(dadosUsuario)
+  var body;
+
+  if (dadosUsuario.id) {
+     body = {
       id: dadosUsuario.id,
     };
   }
@@ -69,12 +72,12 @@ async function atualizarSaldo() {
 
     } catch (error) {
       console.error(error);
-      alert("Erro ao se comunicar com o servidor");
+      
     }
   }
 }
 
 
 
-
+atualizarSaldo()
 setInterval(atualizarSaldo, 2000);
