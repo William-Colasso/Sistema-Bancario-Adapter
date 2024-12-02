@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.psii.app_adapter.Model.Boleto;
+import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Service.BoletoService;
+import com.psii.app_adapter.Service.ClienteService;
 
 import java.util.List;
 
@@ -19,10 +21,19 @@ public class BoletoController {
     @Autowired
     private BoletoService boletoService;
 
+    @Autowired
+    private ClienteService clienteService;
     // Lista todos os boletos
-    @GetMapping("/boletos")
-    public String listarBoletos(Model model){
-        List<Boleto> boletos = boletoService.getAllBoletos();
+    @GetMapping("/boletos/{id}")
+    public String listarBoletos(@PathVariable String id,Model model){
+
+        Cliente cliente = clienteService.getClienteById(id).isPresent() ? clienteService.getClienteById(id).get() : new Cliente(); 
+
+
+        List<Boleto> boletos = boletoService.findByIdCliente(cliente.getId());
+
+
+
         model.addAttribute("boletos", boletos);
         return "banco/boleto"; // Nome do arquivo Thymeleaf
     }
@@ -33,9 +44,15 @@ public class BoletoController {
         Boleto novoBoleto = new Boleto();
         novoBoleto.setValor(valor);
         novoBoleto.setIdCliente(idCliente);
+
         novoBoleto.setPago(false);
         boletoService.createBoleto(novoBoleto);
-        return "redirect:/boletos"; // Redireciona de volta para a lista
+
+        StringBuilder response = new StringBuilder();
+
+        response.append("redirect:/boletos/");
+        response.append(idCliente);
+        return response.toString(); // Redireciona de volta para a lista
     }
 
 

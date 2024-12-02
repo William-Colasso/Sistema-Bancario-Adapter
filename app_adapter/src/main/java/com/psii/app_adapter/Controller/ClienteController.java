@@ -31,7 +31,14 @@ public class ClienteController {
 
     @PostMapping("/clientes")
     public String postClientes(Cliente cliente) {
-        clienteService.createCliente(cliente);
+
+        if (clienteService.isCliente(cliente)) {
+
+        } else {
+
+            clienteService.createCliente(cliente);
+        }
+
         return "redirect:/home";
     }
 
@@ -62,24 +69,8 @@ public class ClienteController {
 
     @GetMapping("/meuPerfil")
     public String getPerfil(Model model) {
-        // Suponhamos que você já tem o cliente logado ou o id do cliente
-        Cliente cliente = clienteService.getClienteById("id-do-cliente").orElse(new Cliente());
-
-        // Aqui você vai verificar qual chave Pix está cadastrada para esse cliente
-        // Você pode criar variáveis para indicar se o CPF, Email ou Telefone estão cadastrados como chave Pix
-        boolean cpfMarcado = cliente.getChavesPix().contains(cliente.getCpf());
-        boolean emailMarcado = cliente.getChavesPix().contains(cliente.getEmail());
-        boolean telefoneMarcado = cliente.getChavesPix().contains(cliente.getTelefone());
-
-        // Passa esses valores para o modelo
-        model.addAttribute("cliente", cliente);
-        model.addAttribute("cpfMarcado", cpfMarcado);
-        model.addAttribute("emailMarcado", emailMarcado);
-        model.addAttribute("telefoneMarcado", telefoneMarcado);
-
         return "/banco/meuPerfil"; // A página de perfil do cliente
     }
-
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<Cliente> getCliente(@PathVariable String id) {
@@ -96,7 +87,8 @@ public class ClienteController {
 
         if (cliOptional.isPresent()) {
             // Aqui você vai verificar qual chave Pix foi selecionada
-            // Por exemplo, se a chave Pix for um CPF, e você recebeu uma chave CPF, você pode atualizar a chavePix do cliente
+            // Por exemplo, se a chave Pix for um CPF, e você recebeu uma chave CPF, você
+            // pode atualizar a chavePix do cliente
             if (cliente.getChavesPix().contains(cliente.getCpf())) {
                 // Marca a chave CPF, no front-end
             }

@@ -1,49 +1,60 @@
 <!DOCTYPE html>
 
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org/">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Página Principal</title>
 
     <div th:insert="~{/geral :: cssDependencie}"></div>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div th:insert="~{/geral :: barraSuperior}"></div>
 
     <div class="containerEscolha">
+      <a th:href="@{pagamento/pagar}" class="linkPagamento">
+        <div class="inicioPagamento">
+          <i class="fas fa-dollar-sign"></i>
+          <p>Pagamento</p>
+        </div>
+      </a>
 
+      <a th:href="@{/meuPerfil}" class="linkPerfil">
+        <div class="inicioPagamento">
+          <i class="fas fa-user"></i>
+          <p>Meu perfil</p>
+        </div>
+      </a>
 
-        <a th:href="@{pagamento/pagar}" class="linkPagamento">
-            <div class="inicioPagamento">
-                <i class="fas fa-dollar-sign"></i>
-                <p>Pagamento</p>
-            </div>
-        </a>
-        
-        <a th:href="@{/meuPerfil}" class="linkPerfil">
-            <div class="inicioPerfil">
-                <i class="fas fa-user"></i><p>Meu perfil</p>
-            </div>
-        </a>
-        
-        <a href="" class="linkExtrato">
-            <div class="inicioExtrato">
-                <i class="fas fa-file-alt"></i><p>Extrato</p>
-            </div>
-        </a>
-        
+      <a href="" class="linkExtrato">
+        <div class="inicioPagamento">
+          <i class="fas fa-file-alt"></i>
+          <p>Extrato</p>
+        </div>
+      </a>
 
-
-
+      <a
+        th:href="@{/boletos/{id}(id=67489eaecc7140627c4c75d8)}"
+        id="boleto"
+        class="linkExtrato"
+      >
+        <div class="inicioPagamento">
+          <i class="fas fa-barcode payment-icon"></i>
+          <p>Boleto</p>
+        </div>
+      </a>
     </div>
-
 
     <div th:insert="~{/geral :: jsDependencie}"></div>
 
-</body>
+    <script>
+      var a = document.getElementById("boleto");
 
+      var dadosUsuario = JSON.parse(localStorage.getItem("dadosUsuario"));
+
+      a.href = `/boletos/${dadosUsuario.id}`
+
+    </script>
+  </body>
 </html>

@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 1rem;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.card {
+    border: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
+
+.status-pago {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-pendente {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.btn-create {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-create:hover {
+    background-color: #0056b3;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+}
+
+.btn-action {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.btn-action:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-copy {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.btn-copy:hover {
+    background-color: #e0a800;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.table-actions button {
+    margin: 0 5px;
+}
+
+.text-center {
+    text-align: center;
+}

@@ -9,4 +9,6 @@ import com.psii.app_adapter.Model.Cliente;
 @Repository
 public interface ClienteRepository extends MongoRepository<Cliente, String> {
     public Optional<Cliente> findByEmail(String email);
+    public Optional<Cliente> findByCliente(Cliente cliente);
+    public Boolean isClient(Optional<Cliente> cliente);
 }

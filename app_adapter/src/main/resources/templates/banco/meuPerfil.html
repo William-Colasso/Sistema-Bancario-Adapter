@@ -1,239 +1,153 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Página Principal</title>
     <div th:insert="~{/geral :: cssDependencie}"></div>
-    <link rel="stylesheet" th:href="@{/css/perfil.css}">
-</head>
-<body>
-
+    <link rel="stylesheet" th:href="@{/css/perfil.css}" />
+  </head>
+  <body>
     <div th:insert="~{/geral :: barraSuperior}"></div>
 
     <!-- Container principal -->
     <div class="container mt-5">
-        <div class="row">
-            <!-- Foto de perfil -->
-            <div class="col-md-4 d-flex justify-content-center align-items-center">
-                <div class="imagePerfil mb-4">
-                    <img id="perfilImage" src="/images/image.png" alt="foto de perfil" class="img-fluid rounded-circle"
-                        style="max-width: 200px;">
-                </div>
-            </div>
-
-            <!-- Formulário de perfil -->
-            <div class="col-md-8">
-                <div class="card p-4 shadow-sm">
-                    <h2 class="text-center mb-4">Meu Perfil</h2>
-                    <form id="perfilForm">
-                        <div class="mb-3">
-                            <label for="numeroConta" class="form-label">Código da Conta</label>
-                            <p id="numeroConta" class="form-control-plaintext">1234567890</p>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">Nome</label>
-                            <input type="text" name="nome" id="nome" class="form-control" placeholder="Seu nome">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" name="cpf" id="cpf" class="form-control" placeholder="Seu CPF">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="Seu email">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="senha" class="form-label">Senha</label>
-                            <div class="input-group">
-                                <input type="password" name="senha" id="senha" class="form-control"
-                                    placeholder="Sua senha">
-                                <span class="input-group-text" id="eye-icon" style="cursor: pointer;">
-                                    👁️
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="telefone" class="form-label">Telefone</label>
-                            <input type="tel" name="telefone" id="telefone" class="form-control"
-                                placeholder="Seu telefone">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="saldo" class="form-label">Saldo</label>
-                            <p id="saldo" class="form-control-plaintext">R$ 0,00</p>
-                        </div>
-
-                        <!-- Opções de Chave Pix -->
-                        <div class="mb-3">
-                            <label for="chavesPix" class="form-label">Escolha sua Chave Pix</label><br>
-                            <input type="checkbox" id="chaveCpf" value="cpf" th:checked="${cpfMarcado}"> CPF<br>
-                            <input type="checkbox" id="chaveEmail" value="email" th:checked="${emailMarcado}"> E-mail<br>
-                            <input type="checkbox" id="chaveTelefone" value="telefone" th:checked="${telefoneMarcado}"> Telefone
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Atualizar Perfil</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div class="row">
+        <!-- Foto de perfil -->
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+          <div class="imagePerfil mb-4">
+            <img
+              id="perfilImage"
+              src="/images/image.png"
+              alt="foto de perfil"
+              class="img-fluid rounded-circle"
+              style="max-width: 200px"
+            />
+          </div>
         </div>
+
+        <!-- Formulário de perfil -->
+        <div class="col-md-8">
+          <div class="card p-4 shadow-sm">
+            <h2 class="text-center mb-4">Meu Perfil</h2>
+            <form id="perfilForm">
+              <div class="mb-3">
+                <label for="numeroConta" class="form-label"
+                  >Código da Conta</label
+                >
+                <p id="numeroConta" class="form-control-plaintext">
+                  1234567890
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome"
+                  class="form-control"
+                  placeholder="Seu nome"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input
+                  type="text"
+                  name="cpf"
+                  id="cpf"
+                  class="form-control"
+                  placeholder="Seu CPF"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="Seu email"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    name="senha"
+                    id="senha"
+                    class="form-control"
+                    placeholder="Sua senha"
+                  />
+                  <span
+                    class="input-group-text"
+                    id="eye-icon"
+                    style="cursor: pointer"
+                  >
+                    👁️
+                  </span>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input
+                  type="tel"
+                  name="telefone"
+                  id="telefone"
+                  class="form-control"
+                  placeholder="Seu telefone"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="saldo" class="form-label"></label>
+                <p id="saldo" th:class="saldo" class="form-control-plaintext">R$ 0,00</p>
+              </div>
+
+              <!-- Opções de Chave Pix -->
+              <div class="mb-3">
+                <label for="chavesPix" class="form-label"
+                  >Escolha sua Chave Pix</label
+                ><br />
+                <input
+                  type="checkbox"
+                  id="chaveCpf"
+                  value="cpf"
+                  th:checked="${cpfMarcado}"
+                />
+                CPF<br />
+                <input
+                  type="checkbox"
+                  id="chaveEmail"
+                  value="email"
+                  th:checked="${emailMarcado}"
+                />
+                E-mail<br />
+                <input
+                  type="checkbox"
+                  id="chaveTelefone"
+                  value="telefone"
+                  th:checked="${telefoneMarcado}"
+                />
+                Telefone
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                  Atualizar Perfil
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-
+    <script th:src="@{/js/meuPerfil.js}"></script>
     <div th:insert="~{/geral :: jsDependencie}"></div>
-
-    <script>
-        // Função para aplicar máscara no campo CPF
-        document.getElementById('cpf').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
-            if (value.length > 11) value = value.slice(0, 11); // Limita o tamanho a 11 caracteres
-
-            // Adiciona os pontos e o traço na formatação
-            const formatted = value.replace(/(\d{3})(\d)/, '$1.$2') // Primeiro ponto
-                                .replace(/(\d{3})(\d)/, '$1.$2') // Segundo ponto
-                                .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Traço
-
-            e.target.value = formatted;
-        });
-
-        let firstTime = false;
-
-        // Função para alternar a visibilidade da senha
-        document.getElementById('eye-icon').addEventListener('click', function () {
-            const senhaInput = document.getElementById('senha');
-            const eyeIcon = document.getElementById('eye-icon');
-
-            // Se a senha estiver oculta, mostra e altera o ícone
-            if (senhaInput.type === 'password') {
-                senhaInput.type = 'text';
-                eyeIcon.textContent = '🙈'; // Altera para "olho fechado"
-            } else {
-                senhaInput.type = 'password';
-                eyeIcon.textContent = '👁️'; // Altera para "olho aberto"
-            }
-        });
-
-        async function getPerfil() {
-            const dadosUsuario = JSON.parse(localStorage.getItem('dadosUsuario'));
-            if (!dadosUsuario) {
-                console.error('Usuário não encontrado no localStorage');
-                return;
-            }
-
-            const id = dadosUsuario.id;  // Pegando o id do cliente do localStorage
-
-            try {
-                // Faz a requisição GET para obter os dados do cliente passando o id como parâmetro na URL
-                const response = await fetch(`/perfil/${id}`);
-
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar dados do perfil');
-                }
-
-                const data = await response.json();
-
-                // Atualiza os dados no localStorage
-                localStorage.setItem('dadosUsuario', JSON.stringify(data));
-
-                // Preenche os campos do formulário com os dados recebidos
-
-                if (!firstTime) {
-                    document.getElementById('nome').value = data.nome;
-                    document.getElementById('cpf').value = data.cpf;
-                    document.getElementById('email').value = data.email;
-                    document.getElementById('telefone').value = data.telefone;
-                    document.getElementById('senha').value = data.senha;
-                    document.getElementById('numeroConta').textContent = data.id;
-                }
-                firstTime = true;
-                document.getElementById('saldo').textContent = `R$ ${data.saldo}`;
-
-                // Marcar as checkboxes com base nas chaves Pix
-                if (data.chavesPix.includes(data.cpf)) {
-                    document.getElementById('chaveCpf').checked = true;
-                }
-                if (data.chavesPix.includes(data.email)) {
-                    document.getElementById('chaveEmail').checked = true;
-                }
-                if (data.chavesPix.includes(data.telefone)) {
-                    document.getElementById('chaveTelefone').checked = true;
-                }
-
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-
-        // Função para atualizar os dados do perfil
-        async function atualizarPerfil(event) {
-            event.preventDefault(); // Previne o comportamento padrão de envio do formulário
-
-            const dadosUsuario = JSON.parse(localStorage.getItem('dadosUsuario'));
-            if (!dadosUsuario) {
-                console.error('Usuário não encontrado no localStorage');
-                return;
-            }
-
-            const id = dadosUsuario.id;  // Pegando o id do cliente do localStorage
-
-            // Obtém os novos valores do formulário
-            const nome = document.getElementById('nome').value;
-            const cpf = document.getElementById('cpf').value;
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('senha').value;
-            const telefone = document.getElementById('telefone').value;
-            
-            // Verifica qual checkbox está selecionado para definir a chave Pix
-            let chavePix = [];
-            if (document.getElementById('chaveCpf').checked) chavePix.push(cpf);
-            if (document.getElementById('chaveEmail').checked) chavePix.push(email);
-            if (document.getElementById('chaveTelefone').checked) chavePix.push(telefone);
-
-            // Cria o objeto com os dados atualizados
-            const dadosAtualizados = {
-                id,
-                nome,
-                cpf,
-                email,
-                senha,
-                telefone,
-                chavesPix: chavePix // Adiciona a lista de chaves Pix
-            };
-
-            try {
-                // Envia os dados atualizados para a rota POST
-                const response = await fetch('/perfil', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(dadosAtualizados)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Erro ao atualizar perfil');
-                }
-
-                // Exibe uma mensagem de sucesso
-                alert('Perfil atualizado com sucesso!');
-            } catch (error) {
-                console.error(error);
-                alert('Erro ao atualizar perfil');
-            }
-        }
-
-        // Chama a função getPerfil para carregar os dados do perfil
-        getPerfil();
-
-        // Adiciona o evento de envio do formulário
-        document.getElementById('perfilForm').addEventListener('submit', atualizarPerfil);
-    </script>
-</body>
+  </body>
 </html>

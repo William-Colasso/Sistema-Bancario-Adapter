@@ -4,6 +4,9 @@ import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Service.PagamentoBoleto;
 import com.psii.app_adapter.Service.TransferenciaBancaria;
+
+
+
 import com.psii.app_adapter.Service.AdapterPix; // Usando o Adapter como temporário para "Pix"
 import com.psii.app_adapter.Service.ClienteService;
 import com.psii.app_adapter.Service.BoletoService;
@@ -48,7 +51,7 @@ public class PagamentoController {
 
         Boleto boleto = new Boleto();
 
-        if (tipoPagamento.equals("BOLETO"'') ) {
+        if (tipoPagamento.equals("BOLETO")) {
             boleto = boletoService.getBoletoById(campoDinamico).get();
             valor = boleto.getValor();
             System.out.println(valor);
@@ -114,5 +117,28 @@ public class PagamentoController {
     @GetMapping("/getAll")
     public ResponseEntity<List<Cliente>> listAllClientes() {
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.getAllClientes());
+    }
+
+    @PostMapping("/saldo")
+    public ResponseEntity<Map<String,Object>> getSaldo(@RequestBody Map<String, String> data){
+
+        Map<String, Object> response = new HashMap<>(); 
+
+        Optional<Cliente> clienteOptional = clienteService.getClienteById(data.get("id"));
+        Cliente cliente = new Cliente();
+
+
+        if(clienteOptional.isPresent()){    
+            cliente = clienteOptional.get();
+            response.put("saldo", cliente.getSaldo());
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+
+
+        response.put("message", "Cliente não encontrado");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+
     }
 }

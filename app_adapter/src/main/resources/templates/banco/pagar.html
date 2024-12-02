@@ -1,203 +1,118 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org/">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pagamento</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
-            padding: 20px;
-        }
+    <link rel="stylesheet" th:href="@{/css/geral.css}" />
+    <link rel="stylesheet" th:href="@{/css/paginaPrincipal.css}" />
+    <link rel="stylesheet" th:href="@{/css/pagar.css}" />
+  </head>
 
-        .container {
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            border-radius: 8px;
-        }
-
-        .form-label {
-            font-weight: bold;
-            color: #5a5a5a;
-        }
-
-        .form-control {
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: none;
-        }
-
-        .submit-btn {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #004c97;
-        }
-
-        .value-email-container {
-            margin-top: 20px;
-        }
-
-        .radio-container {
-            margin-top: 20px;
-        }
-
-        .radio-container label {
-            margin-right: 20px;
-        }
-
-        .payment-icon {
-            margin-right: 8px;
-            font-size: 1.2em;
-            vertical-align: middle;
-        }
-
-        .conditional-input {
-            display: none;
-            margin-top: 15px;
-        }
-
-        .conditional-input.active {
-            display: block;
-        }
-    </style>
-
-<link rel="stylesheet" th:href="@{/css/geral.css}" />
-<link rel="stylesheet" th:href="@{/css/paginaPrincipal.css}" />
-</head>
-
-<body>
+  <body>
     <div th:insert="~{/geral :: barraSuperior}"></div>
 
     <div class="container">
-        <h3 class="mb-4">Realizar Pagamento</h3>
+      <h3 class="mb-4">Realizar Pagamento</h3>
 
-        <!-- Opções de tipo de pagamento -->
-        <div class="radio-container">
-            <label class="form-label">Tipo de Pagamento:</label>
-            <div>
-                <input type="radio" name="tipoPagamento" id="pix" value="PIX" checked onchange="atualizarCampo()">
-                <label for="pix">
-                    <i class="fas fa-qrcode payment-icon"></i>PIX
-                </label>
+      <!-- Opções de tipo de pagamento -->
+      <div class="radio-container">
+        <label class="form-label">Tipo de Pagamento:</label>
+        <div>
+          <input
+            type="radio"
+            name="tipoPagamento"
+            id="pix"
+            value="PIX"
+            checked
+            onchange="atualizarCampo()"
+          />
+          <label for="pix">
+            <i class="fas fa-qrcode payment-icon"></i>PIX
+          </label>
 
-                <input type="radio" name="tipoPagamento" id="boleto" value="BOLETO" onchange="atualizarCampo()">
-                <label for="boleto">
-                    <i class="fas fa-barcode payment-icon"></i>Boleto
-                </label>
+          <input
+            type="radio"
+            name="tipoPagamento"
+            id="boleto"
+            value="BOLETO"
+            onchange="atualizarCampo()"
+          />
+          <label for="boleto">
+            <i class="fas fa-barcode payment-icon"></i>Boleto
+          </label>
 
-                <input type="radio" name="tipoPagamento" id="transferencia" value="TRANSFERENCIA" onchange="atualizarCampo()">
-                <label for="transferencia">
-                    <i class="fas fa-university payment-icon"></i>Transferência Bancária
-                </label>
-            </div>
+          <input
+            type="radio"
+            name="tipoPagamento"
+            id="transferencia"
+            value="TRANSFERENCIA"
+            onchange="atualizarCampo()"
+          />
+          <label for="transferencia">
+            <i class="fas fa-university payment-icon"></i>Transferência Bancária
+          </label>
         </div>
+      </div>
 
-        <!-- Valor -->
-        <div class="value-email-container" id="valorContainer">
-            <label for="valor" class="form-label">Valor</label>
-            <input type="number" id="valor" class="form-control" placeholder="Digite o valor do pagamento" min="0">
-        </div>
+      <!-- Valor -->
+      <div class="value-email-container" id="valorContainer">
+        <label for="valor" class="form-label">Valor</label>
+        <input
+          type="number"
+          id="valor"
+          class="form-control"
+          placeholder="Digite o valor do pagamento"
+          min="0"
+        />
+      </div>
 
-        <!-- Campo condicional -->
-        <div id="campoCondicional" class="conditional-input">
-            <label id="campoLabel" class="form-label">Email</label>
-            <input type="text" id="campoDinamico" class="form-control" placeholder="Digite o email">
-        </div>
+      <!-- Campo condicional -->
+      <div id="campoCondicional" class="conditional-input">
+        <label id="campoLabel" class="form-label">Chave PIX</label>
+        <input
+          type="text"
+          id="campoDinamico"
+          class="form-control"
+          placeholder="Digite a chave"
+        />
+      </div>
 
-        <!-- Botão de Confirmação -->
-        <button type="submit" class="submit-btn mt-4" onclick="confirmarPagamento()">Confirmar Pagamento</button>
+      <!-- Botão de Confirmação -->
+      <button
+        type="submit"
+        class="submit-btn mt-4"
+        onclick="confirmarPagamento()"
+      >
+        Confirmar Pagamento
+      </button>
     </div>
+    <div class="saldo" id="saldo"></div>
+
+    <script th:src="@{/js/pagar.js}"></script>
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/cache.js}"></script>
+    <div th:insert="~{/geral :: jsDependencie}"></div>
 
     <script>
-        function atualizarCampo() {
-            const tipoPagamento = document.querySelector('input[name="tipoPagamento"]:checked').value;
-            const campoCondicional = document.getElementById('campoCondicional');
-            const campoLabel = document.getElementById('campoLabel');
-            const campoDinamico = document.getElementById('campoDinamico');
-            const valorContainer = document.getElementById('valorContainer');
+      atualizarCampo();
 
-            if (tipoPagamento === 'PIX') {
-                campoLabel.textContent = 'Email';
-                campoDinamico.placeholder = 'Digite o email';
-                valorContainer.style.display = 'block';
-            } else if (tipoPagamento === 'BOLETO') {
-                campoLabel.textContent = 'Código do Boleto';
-                campoDinamico.placeholder = 'Digite o código do boleto';
-                valorContainer.style.display = 'none';
-            } else if (tipoPagamento === 'TRANSFERENCIA') {
-                campoLabel.textContent = 'Código da Conta';
-                campoDinamico.placeholder = 'Digite o código da conta';
-                valorContainer.style.display = 'block';
-            }
 
-            campoCondicional.classList.add('active');
-        }
 
-        function confirmarPagamento() {
-            const dadosUsuario = JSON.parse(localStorage.getItem('dadosUsuario'));
-            if (!dadosUsuario || !dadosUsuario.id) {
-                alert('Usuário não identificado. Faça login novamente.');
-                return;
-            }
-
-            const idUsuario = dadosUsuario.id;
-            const tipoPagamento = document.querySelector('input[name="tipoPagamento"]:checked').value;
-            const valor = document.getElementById('valor').value;
-            const campoDinamico = document.getElementById('campoDinamico').value;
-
-            if ((tipoPagamento !== 'BOLETO' && !valor) || !campoDinamico) {
-                alert('Por favor, preencha todos os campos.');
-                return;
-            }
-
-            const payload = new URLSearchParams({
-                idUsuario,
-                tipoPagamento,
-                valor: tipoPagamento === 'BOLETO' ? 1 : valor,
-                campoDinamico
-            });
-
-            fetch('/pagamento/processar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: payload.toString()
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        // Limpar os campos após o pagamento ser realizado
-                        document.getElementById('valor').value = '';
-                        document.getElementById('campoDinamico').value = '';
-                    } else {
-                        alert(`Erro: ${data.message}`);
-                    }
-                })
-                .catch(error => console.error('Erro:', error));
-        }
     </script>
-
-<script th:src="@{/js/login.js}"></script>
-<script th:src="@{/js/cache.js}"></script>
-<div th:insert="~{/geral :: jsDependencie}"></div>
-</body>
-
+  </body>
 </html>

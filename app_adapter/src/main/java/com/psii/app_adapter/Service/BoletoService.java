@@ -11,11 +11,12 @@ import java.util.Optional;
 @Service
 public class BoletoService {
 
-    @Autowired
-    private ClienteService clienteService;
 
     @Autowired
     private BoletoRepository boletoRepository;
+
+
+
 
     // Método para buscar todos os clientes
     public List<Boleto> getAllBoletos() {
@@ -48,6 +49,11 @@ public class BoletoService {
             return;
         }
         return;
+    }
+
+
+    public List<Boleto> findByIdCliente(String id){
+        return boletoRepository.findByIdCliente(id);
     }
 
 }
