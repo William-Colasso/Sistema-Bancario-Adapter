@@ -1,4 +1,4 @@
-package com.psii.app_adapter.Service;
+package com.psii.app_adapter.Pagamentos;
 
 import java.util.Optional;
 
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
 import com.psii.app_adapter.Model.Pagamento;
+import com.psii.app_adapter.Service.BoletoService;
+import com.psii.app_adapter.Service.ClienteService;
 
 // Serviço Nativo do banco
 @Service

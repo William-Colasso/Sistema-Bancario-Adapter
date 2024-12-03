@@ -2,14 +2,11 @@ package com.psii.app_adapter.Controller;
 
 import com.psii.app_adapter.Model.Boleto;
 import com.psii.app_adapter.Model.Cliente;
-import com.psii.app_adapter.Service.PagamentoBoleto;
-import com.psii.app_adapter.Service.TransferenciaBancaria;
-
-
-
-import com.psii.app_adapter.Service.AdapterPix; // Usando o Adapter como temporário para "Pix"
-import com.psii.app_adapter.Service.ClienteService;
+import com.psii.app_adapter.Pagamentos.AdapterPix;
+import com.psii.app_adapter.Pagamentos.PagamentoBoleto;
+import com.psii.app_adapter.Pagamentos.TransferenciaBancaria;
 import com.psii.app_adapter.Service.BoletoService;
+import com.psii.app_adapter.Service.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

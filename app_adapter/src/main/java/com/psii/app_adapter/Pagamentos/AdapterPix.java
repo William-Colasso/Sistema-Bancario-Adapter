@@ -1,4 +1,4 @@
-package com.psii.app_adapter.Service;
+package com.psii.app_adapter.Pagamentos;
 import org.springframework.stereotype.Service;
 import com.psii.app_adapter.Model.Pagamento;
 
