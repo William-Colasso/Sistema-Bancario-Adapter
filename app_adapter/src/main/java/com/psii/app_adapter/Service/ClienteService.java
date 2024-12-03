@@ -69,11 +69,10 @@ public class ClienteService {
 
     public Map<String, Object> findByAny(String cpf, String telefone, String nome, String email) {
 
-
         Map<String, Object> response = new HashMap<>();
 
         response.put("CPF", clienteRepository.findByCpf(cpf).isPresent());
-        
+
         response.put("TELEFONE", clienteRepository.findByTelefone(telefone).isPresent());
 
         response.put("NOME", clienteRepository.findByNome(nome).isPresent());
@@ -85,7 +84,11 @@ public class ClienteService {
 
     public Boolean clienteJaCadastrado(Cliente cliente) {
         return findByAny(cliente.getCpf(), cliente.getTelefone(), cliente.getNome(), cliente.getEmail())
-               .containsValue(true);
+                .containsValue(true);
     }
-    
+
+    public Optional<Cliente> findByEmail(String email) {
+
+        return clienteRepository.findByEmail(email);
+    }
 }
